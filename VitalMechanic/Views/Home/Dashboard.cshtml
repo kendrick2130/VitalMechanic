@@ -1,0 +1,162 @@
+﻿@using VitalMechanic.Models
+@model VitalMechanic.Models.CarGarage
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+
+}
+<div class="text-center">
+    <h2 class="display-3 text-warning">Welcome To Your Dashboard</h2>
+</div>
+<body>
+    <header>
+        <form method="post">
+            <div class="form-row justify-content-between">
+                <div class="col-2">
+                    <div class="form-group custom-control-inline">
+                        @Html.DropDownList("CarYear", ViewBag.carYearList as SelectList, "Year", new { @div_class = "form-contol", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
+
+
+                        @Html.DropDownList("CarMake", ViewBag.carMakeList as SelectList, "Make", new { @div_class = "form-contol", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
+
+
+                        @Html.DropDownList("CarModels", ViewBag.carModelList as SelectList, "Model", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
+
+
+                        @Html.DropDownList("DriveTran", ViewBag.carDriveList as SelectList, "DriveTran", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
+
+
+                        @Html.DropDownList("EngineSize", ViewBag.carEngineList as SelectList, "Engine", new { @div_class = "form-group", @class = "form-control col-md-6", aria_labelledby = "dropdownMenuButton" })
+
+
+                        @Html.DropDownList("Transmission", ViewBag.carTransmissionList as SelectList, "Transmission", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
+                        <input type="submit" value="Save" class="btn btn-primary">
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <div class="row justify-content-between">
+            <div class="col-sm-3">
+                <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Maintenance Manager</div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h6 class="card-title">Maintenance Needed</h6>
+                        </div>
+                        <p class="card-text">
+                            <ul>
+                                <li>Front Struts</li>
+                                <li>Rear Shocks</li>
+                                <li>Spark plugs</li>
+                                <li>Change oil</li>
+                            </ul>
+                        </p>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-primary">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Maintenance Manager</div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h6 class="card-title">Maintenance Completed</h6>
+                        </div>
+                        <p class="card-text">
+                            <ul>
+                                <li>Front Struts</li>
+                                <li>Rear Shocks</li>
+                                <li>Spark plugs</li>
+                                <li>Change oil</li>
+                            </ul>
+                        </p>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-primary">Edit</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <form method="post">
+            
+            <div class="form-row justify-content-center">
+                <div class="form-group">
+                    <label class="text">Your Garage
+                        @Html.DropDownList("CarGarage", ViewBag.carGarageList as SelectList,"Select Vehicle", new { @div_class = "form-group justify-content-center" })
+                    </label>
+                </div>
+            </div>                  
+                          
+        </form>
+        <div class="row justify-content-between">
+            <div class="col-sm-3">
+                <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Maintenance Manager</div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h6 class="card-title">Upcoming Maintenance</h6>
+                        </div>
+                        <p class="card-text">
+                            <ul>
+                                <li>Air Filter</li>
+                                <li>In Cabin Air Filter</li>
+                                <li>Serpentin Belt</li>
+                                <li>Tire Rotation</li>
+                            </ul>
+                        </p>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-primary">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="text-center">
+                    <h5>Previous Oil Change & Tire Rotation</h5>
+                </div>
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-light">
+                        <tr class="table-primary">
+                            <th scope="col">Day</th>
+                            <th scope="col">Month</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Mileage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-primary">
+                            <th scope="row">3</th>
+                            <td>Jan</td>
+                            <td>2019</td>
+                            <td>65000</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <th scope="row">9</th>
+                            <td>Feb</td>
+                            <td>2020</td>
+                            <td>81000</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <th scope="row">12</th>
+                            <td>Mar</td>
+                            <td>2020</td>
+                            <td>81728</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a href="#" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+</body>
+
+
+

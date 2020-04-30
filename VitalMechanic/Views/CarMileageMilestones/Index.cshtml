@@ -1,0 +1,41 @@
+﻿@model IEnumerable<VitalMechanic.Models.CarMileageMilestone>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaintenanceCompletionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mileage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaintenanceCompletionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mileage.Mileageid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserCarId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserCarId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserCarId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
