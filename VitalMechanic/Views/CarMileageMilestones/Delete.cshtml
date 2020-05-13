@@ -21,12 +21,12 @@
             @Html.DisplayNameFor(model => model.Mileage)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Mileage.Mileageid)
+            @Html.DisplayFor(model => model.Mileage.MileageId)
         </dd class>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="UserCarId" />
+        <input type="hidden" asp-for="UserCarsId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

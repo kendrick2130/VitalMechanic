@@ -10,11 +10,11 @@ using VitalMechanic.Models;
 
 namespace VitalMechanic.Controllers
 {
-    public class MileageMilestonesController : Controller
+    public class MileageController : Controller
     {
         private readonly VehiclesContext _context;
 
-        public MileageMilestonesController(VehiclesContext context)
+        public MileageController(VehiclesContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace VitalMechanic.Controllers
         // GET: MileageMilestones
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MileageMilestone.ToListAsync());
+            return View(await _context.Mileage.ToListAsync());
         }
 
         // GET: MileageMilestones/Details/5
@@ -33,8 +33,8 @@ namespace VitalMechanic.Controllers
                 return NotFound();
             }
 
-            var mileageMilestone = await _context.MileageMilestone
-                .FirstOrDefaultAsync(m => m.Mileageid == id);
+            var mileageMilestone = await _context.Mileage
+                .FirstOrDefaultAsync(m => m.MileageId == id);
             if (mileageMilestone == null)
             {
                 return NotFound();
@@ -54,15 +54,15 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]        
-        public async Task<IActionResult> Create([Bind("Mileageid,CarMileage,Milestones")] MileageMilestone mileageMilestone)
+        public async Task<IActionResult> Create([Bind("CarMileageMilestoneId,CarMileage,Milestones")] Mileage mileage)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(mileageMilestone);
+                _context.Add(mileage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(mileageMilestone);
+            return View(mileage);
         }
 
         // GET: MileageMilestones/Edit/5
@@ -73,7 +73,7 @@ namespace VitalMechanic.Controllers
                 return NotFound();
             }
 
-            var mileageMilestone = await _context.MileageMilestone.FindAsync(id);
+            var mileageMilestone = await _context.Mileage.FindAsync(id);
             if (mileageMilestone == null)
             {
                 return NotFound();
@@ -86,9 +86,9 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Mileageid,CarMileage,Milestones")] MileageMilestone mileageMilestone)
+        public async Task<IActionResult> Edit(int id, [Bind("CarMileageMilestoneId,CarMileage,Milestones")] Mileage mileage)
         {
-            if (id != mileageMilestone.Mileageid)
+            if (id != mileage.MileageId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace VitalMechanic.Controllers
             {
                 try
                 {
-                    _context.Update(mileageMilestone);
+                    _context.Update(mileage);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MileageMilestoneExists(mileageMilestone.Mileageid))
+                    if (!MileageMilestoneExists(mileage.MileageId))
                     {
                         return NotFound();
                     }
@@ -113,7 +113,7 @@ namespace VitalMechanic.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(mileageMilestone);
+            return View(mileage);
         }
 
         // GET: MileageMilestones/Delete/5
@@ -124,8 +124,8 @@ namespace VitalMechanic.Controllers
                 return NotFound();
             }
 
-            var mileageMilestone = await _context.MileageMilestone
-                .FirstOrDefaultAsync(m => m.Mileageid == id);
+            var mileageMilestone = await _context.Mileage
+                .FirstOrDefaultAsync(m => m.MileageId == id);
             if (mileageMilestone == null)
             {
                 return NotFound();
@@ -139,15 +139,15 @@ namespace VitalMechanic.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mileageMilestone = await _context.MileageMilestone.FindAsync(id);
-            _context.MileageMilestone.Remove(mileageMilestone);
+            var mileageMilestone = await _context.Mileage.FindAsync(id);
+            _context.Mileage.Remove(mileageMilestone);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MileageMilestoneExists(int id)
         {
-            return _context.MileageMilestone.Any(e => e.Mileageid == id);
+            return _context.Mileage.Any(e => e.MileageId == id);
         }
     }
 }

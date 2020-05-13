@@ -10,8 +10,7 @@ namespace VitalMechanic.Models
     public class CarGarage
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CarGarageID { get; }
+        public int CarGarageID { get; set; }
         public int CarYear { get; set; }
         public string CarMake { get; set; }
         public string CarModels { get; set; }

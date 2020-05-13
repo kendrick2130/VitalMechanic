@@ -34,7 +34,7 @@ namespace VitalMechanic.Controllers
             }
 
             var carYear = await _context.CarYear
-                .FirstOrDefaultAsync(m => m.YearMakeId == id);
+                .FirstOrDefaultAsync(m => m.CarYearId == id);
             if (carYear == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("YearMakeId,YearOfMake")] CarYear carYear)
+        public async Task<IActionResult> Create([Bind("CarYearId,YearOfMake")] CarYear carYear)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("YearMakeId,YearOfMake")] CarYear carYear)
+        public async Task<IActionResult> Edit(int id, [Bind("CarYearId,YearOfMake")] CarYear carYear)
         {
-            if (id != carYear.YearMakeId)
+            if (id != carYear.CarYearId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace VitalMechanic.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarYearExists(carYear.YearMakeId))
+                    if (!CarYearExists(carYear.CarYearId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace VitalMechanic.Controllers
             }
 
             var carYear = await _context.CarYear
-                .FirstOrDefaultAsync(m => m.YearMakeId == id);
+                .FirstOrDefaultAsync(m => m.CarYearId == id);
             if (carYear == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace VitalMechanic.Controllers
 
         private bool CarYearExists(int id)
         {
-            return _context.CarYear.Any(e => e.YearMakeId == id);
+            return _context.CarYear.Any(e => e.CarYearId == id);
         }
     }
 }

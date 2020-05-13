@@ -9,7 +9,7 @@ namespace VitalMechanic.Models
     public class EngineSize
     {
         [Key]
-        public int EngineID { get; set; }
+        public int EngineSizeId { get; set; }
         public string EngineType { get; set; }
     }
 }

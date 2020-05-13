@@ -12,11 +12,11 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserCarId" />
+            <input type="hidden" asp-for="UserCarsId" />
             <div class="form-group">
-                <label asp-for="Mileageid" class="control-label"></label>
-                <select asp-for="Mileageid" class="form-control" asp-items="ViewBag.Mileageid"></select>
-                <span asp-validation-for="Mileageid" class="text-danger"></span>
+                <label asp-for="CarMileageMilestoneId" class="control-label"></label>
+                <select asp-for="CarMileageMilestoneId" class="form-control" asp-items="ViewBag.CarMileageMilestoneId"></select>
+                <span asp-validation-for="CarMileageMilestoneId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MaintenanceCompletionDate" class="control-label"></label>

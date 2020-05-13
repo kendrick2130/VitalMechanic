@@ -1,6 +1,4 @@
-﻿@using VitalMechanic.Models
-@model VitalMechanic.Models.CarGarage
-@{
+﻿@{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 
@@ -10,7 +8,7 @@
 </div>
 <body>
     <header>
-        <form method="post">
+        <form method="post" asp-action="StoreVehicle">
             <div class="form-row justify-content-between">
                 <div class="col-2">
                     <div class="form-group custom-control-inline">
@@ -30,7 +28,7 @@
 
 
                         @Html.DropDownList("Transmission", ViewBag.carTransmissionList as SelectList, "Transmission", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
-                        <input type="submit" value="Save" class="btn btn-primary">
+                        <input name="cg" type="submit" value="Save" class="btn btn-primary">
                     </div>
 
                 </div>
@@ -82,16 +80,27 @@
                 </div>
             </div>
         </div>
-        <form method="post">
-            
+        <form method="post" asp-action="StoreMileage">
             <div class="form-row justify-content-center">
-                <div class="form-group">
-                    <label class="text">Your Garage
-                        @Html.DropDownList("CarGarage", ViewBag.carGarageList as SelectList,"Select Vehicle", new { @div_class = "form-group justify-content-center" })
-                    </label>
+                <label for="Your Garage" class="text">
+                    Your Garage
+
+                    @Html.DropDownList("CarGarage", ViewBag.carGarageList as SelectList, "Select Vehicle", new { @div_class = "form-group justify-content-center" })
+                </label>
+            </div>
+            <div class="form-row justify-content-center">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="MileageId" class="sr-only">Vehicle Mileage</label>                    
+                    <input name="miles" type="text" class="form-control" id="MileageId" placeholder="Vehicle Mileage">
                 </div>
-            </div>                  
-                          
+                <button type="submit" class="btn btn-primary mb-2">Enter</button>
+            </div>
+            <div class="form-row justify-content-lg-center">
+                <div class="form-group">
+                    <label for="MileageMileStone">Mileage Milestone</label>
+                    <textarea class="form-control" id="MileageMileStoneId" rows="3"></textarea>
+                </div>
+            </div>
         </form>
         <div class="row justify-content-between">
             <div class="col-sm-3">

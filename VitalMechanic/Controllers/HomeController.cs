@@ -32,12 +32,28 @@ namespace VitalMechanic.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Dashboard(CarGarage cg)
-        {
+        public async Task<IActionResult> StoreVehicle(CarGarage cg)
+        {          
+
             _context.CarGarage.Add(cg);
             _context.SaveChanges();
             //ViewBag.message = "The Selected Vehicle" + cg.Make + "Is saved Successfully!";
+            return RedirectToAction();
+        }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> StoreMileage(int miles)
+        {
+            Mileage mileage = new Mileage();
+            mileage.CarMileage = miles;
+            //if (miles <= 30000)
+            //{
+            //    Console.WriteLine("Time to change oil");
+            //}
+            _context.Mileage.Add(mileage);
+            _context.SaveChanges();
+           
             return RedirectToAction();
         }
 
@@ -45,7 +61,6 @@ namespace VitalMechanic.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
-
             VehiclesContext vehicleMake = new VehiclesContext();
             var getCarMakeList = await vehicleMake.CarMakes.ToListAsync();
 

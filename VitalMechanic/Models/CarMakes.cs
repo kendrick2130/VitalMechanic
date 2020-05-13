@@ -10,7 +10,7 @@ namespace VitalMechanic.Models
             CarModels = new HashSet<CarModels>();
         }
 
-        public int MakeId { get; set; }
+        public int CarMakesId { get; set; }
         public string Make { get; set; }
 
         public virtual ICollection<CarModels> CarModels { get; set; }

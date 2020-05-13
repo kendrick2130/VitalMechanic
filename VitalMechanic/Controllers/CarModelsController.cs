@@ -36,7 +36,7 @@ namespace VitalMechanic.Controllers
 
             var carModels = await _context.CarModels
                 .Include(c => c.Make)
-                .FirstOrDefaultAsync(m => m.ModelId == id);
+                .FirstOrDefaultAsync(m => m.CarModelsId == id);
             if (carModels == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace VitalMechanic.Controllers
         // GET: CarModels/Create
         public IActionResult Create()
         {
-            ViewData["MakeId"] = new SelectList(_context.CarMakes, "MakeId", "Make");
+            ViewData["CarMakesId"] = new SelectList(_context.CarMakes, "CarMakesId", "Make");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ModelId,Model,MakeId")] CarModels carModels)
+        public async Task<IActionResult> Create([Bind("CarModelsId,Model,CarMakesId")] CarModels carModels)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace VitalMechanic.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MakeId"] = new SelectList(_context.CarMakes, "MakeId", "Make", carModels.MakeId);
+            ViewData["CarMakesId"] = new SelectList(_context.CarMakes, "CarMakesId", "Make", carModels.CarMakesId);
             return View(carModels);
         }
 
@@ -82,7 +82,7 @@ namespace VitalMechanic.Controllers
             {
                 return NotFound();
             }
-            ViewData["MakeId"] = new SelectList(_context.CarMakes, "MakeId", "Make", carModels.MakeId);
+            ViewData["CarMakesId"] = new SelectList(_context.CarMakes, "CarMakesId", "Make", carModels.CarMakesId);
             return View(carModels);
         }
 
@@ -91,9 +91,9 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ModelId,Model,MakeId")] CarModels carModels)
+        public async Task<IActionResult> Edit(int id, [Bind("CarModelsId,Model,CarMakesId")] CarModels carModels)
         {
-            if (id != carModels.ModelId)
+            if (id != carModels.CarModelsId)
             {
                 return NotFound();
             }
@@ -107,7 +107,7 @@ namespace VitalMechanic.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarModelsExists(carModels.ModelId))
+                    if (!CarModelsExists(carModels.CarModelsId))
                     {
                         return NotFound();
                     }
@@ -118,7 +118,7 @@ namespace VitalMechanic.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MakeId"] = new SelectList(_context.CarMakes, "MakeId", "Make", carModels.MakeId);
+            ViewData["CarMakesId"] = new SelectList(_context.CarMakes, "CarMakesId", "Make", carModels.CarMakesId);
             return View(carModels);
         }
 
@@ -132,7 +132,7 @@ namespace VitalMechanic.Controllers
 
             var carModels = await _context.CarModels
                 .Include(c => c.Make)
-                .FirstOrDefaultAsync(m => m.ModelId == id);
+                .FirstOrDefaultAsync(m => m.CarModelsId == id);
             if (carModels == null)
             {
                 return NotFound();
@@ -154,7 +154,7 @@ namespace VitalMechanic.Controllers
 
         private bool CarModelsExists(int id)
         {
-            return _context.CarModels.Any(e => e.ModelId == id);
+            return _context.CarModels.Any(e => e.CarModelsId == id);
         }
     }
 }

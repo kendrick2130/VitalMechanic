@@ -36,7 +36,7 @@ namespace VitalMechanic.Controllers
 
             var carMileageMilestone = await _context.CarMileageMilestone
                 .Include(c => c.Mileage)
-                .FirstOrDefaultAsync(m => m.UserCarId == id);
+                .FirstOrDefaultAsync(m => m.UserCarsId == id);
             if (carMileageMilestone == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace VitalMechanic.Controllers
         // GET: CarMileageMilestones/Create
         public IActionResult Create()
         {
-            ViewData["Mileageid"] = new SelectList(_context.MileageMilestone, "Mileageid", "Mileageid");
+            ViewData["CarMileageMilestoneId"] = new SelectList(_context.Mileage, "CarMileageMilestoneId", "CarMileageMilestoneId");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserCarId,Mileageid,MaintenanceCompletionDate")] CarMileageMilestone carMileageMilestone)
+        public async Task<IActionResult> Create([Bind("UserCarsId,CarMileageMilestoneId,MaintenanceCompletionDate")] CarMileageMilestone carMileageMilestone)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace VitalMechanic.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Mileageid"] = new SelectList(_context.MileageMilestone, "Mileageid", "Mileageid", carMileageMilestone.Mileageid);
+            ViewData["CarMileageMilestoneId"] = new SelectList(_context.Mileage, "CarMileageMilestoneId", "CarMileageMilestoneId", carMileageMilestone.CarMileageMilestoneId);
             return View(carMileageMilestone);
         }
 
@@ -82,7 +82,7 @@ namespace VitalMechanic.Controllers
             {
                 return NotFound();
             }
-            ViewData["Mileageid"] = new SelectList(_context.MileageMilestone, "Mileageid", "Mileageid", carMileageMilestone.Mileageid);
+            ViewData["CarMileageMilestoneId"] = new SelectList(_context.Mileage, "CarMileageMilestoneId", "CarMileageMilestoneId", carMileageMilestone.CarMileageMilestoneId);
             return View(carMileageMilestone);
         }
 
@@ -91,9 +91,9 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserCarId,Mileageid,MaintenanceCompletionDate")] CarMileageMilestone carMileageMilestone)
+        public async Task<IActionResult> Edit(int id, [Bind("UserCarsId,CarMileageMilestoneId,MaintenanceCompletionDate")] CarMileageMilestone carMileageMilestone)
         {
-            if (id != carMileageMilestone.UserCarId)
+            if (id != carMileageMilestone.UserCarsId)
             {
                 return NotFound();
             }
@@ -107,7 +107,7 @@ namespace VitalMechanic.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarMileageMilestoneExists(carMileageMilestone.UserCarId))
+                    if (!CarMileageMilestoneExists(carMileageMilestone.UserCarsId))
                     {
                         return NotFound();
                     }
@@ -118,7 +118,7 @@ namespace VitalMechanic.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Mileageid"] = new SelectList(_context.MileageMilestone, "Mileageid", "Mileageid", carMileageMilestone.Mileageid);
+            ViewData["CarMileageMilestoneId"] = new SelectList(_context.Mileage, "CarMileageMilestoneId", "CarMileageMilestoneId", carMileageMilestone.CarMileageMilestoneId);
             return View(carMileageMilestone);
         }
 
@@ -132,7 +132,7 @@ namespace VitalMechanic.Controllers
 
             var carMileageMilestone = await _context.CarMileageMilestone
                 .Include(c => c.Mileage)
-                .FirstOrDefaultAsync(m => m.UserCarId == id);
+                .FirstOrDefaultAsync(m => m.UserCarsId == id);
             if (carMileageMilestone == null)
             {
                 return NotFound();
@@ -154,7 +154,7 @@ namespace VitalMechanic.Controllers
 
         private bool CarMileageMilestoneExists(int id)
         {
-            return _context.CarMileageMilestone.Any(e => e.UserCarId == id);
+            return _context.CarMileageMilestone.Any(e => e.UserCarsId == id);
         }
     }
 }

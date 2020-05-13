@@ -5,10 +5,10 @@ namespace VitalMechanic.Models
 {
     public partial class CarMileageMilestone
     {
-        public int UserCarId { get; set; }
-        public int? Mileageid { get; set; }
+        public int UserCarsId { get; set; }
+        public int CarMileageMilestoneId { get; set; }
         public DateTime? MaintenanceCompletionDate { get; set; }
 
-        public virtual MileageMilestone Mileage { get; set; }
+        public virtual Mileage Mileage { get; set; }
     }
 }

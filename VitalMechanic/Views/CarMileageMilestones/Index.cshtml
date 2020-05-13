@@ -28,12 +28,12 @@
                 @Html.DisplayFor(modelItem => item.MaintenanceCompletionDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Mileage.Mileageid)
+                @Html.DisplayFor(modelItem => item.Mileage.MileageId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.UserCarId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserCarId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserCarId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.UserCarsId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserCarsId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserCarsId">Delete</a>
             </td>
         </tr>
 }

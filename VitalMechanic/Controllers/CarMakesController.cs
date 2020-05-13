@@ -34,7 +34,7 @@ namespace VitalMechanic.Controllers
             }
 
             var carMakes = await _context.CarMakes
-                .FirstOrDefaultAsync(m => m.MakeId == id);
+                .FirstOrDefaultAsync(m => m.CarMakesId == id);
             if (carMakes == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MakeId,Make")] CarMakes carMakes)
+        public async Task<IActionResult> Create([Bind("CarMakesId,Make")] CarMakes carMakes)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace VitalMechanic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MakeId,Make")] CarMakes carMakes)
+        public async Task<IActionResult> Edit(int id, [Bind("CarMakesId,Make")] CarMakes carMakes)
         {
-            if (id != carMakes.MakeId)
+            if (id != carMakes.CarMakesId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace VitalMechanic.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarMakesExists(carMakes.MakeId))
+                    if (!CarMakesExists(carMakes.CarMakesId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace VitalMechanic.Controllers
             }
 
             var carMakes = await _context.CarMakes
-                .FirstOrDefaultAsync(m => m.MakeId == id);
+                .FirstOrDefaultAsync(m => m.CarMakesId == id);
             if (carMakes == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace VitalMechanic.Controllers
 
         private bool CarMakesExists(int id)
         {
-            return _context.CarMakes.Any(e => e.MakeId == id);
+            return _context.CarMakes.Any(e => e.CarMakesId == id);
         }
     }
 }
