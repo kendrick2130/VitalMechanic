@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VitalMechanic.Migrations
 {
-    public partial class StoreMileage : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +14,7 @@ namespace VitalMechanic.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CarYear = table.Column<int>(nullable: false),
                     CarMake = table.Column<string>(nullable: true),
+                    CarModelsId = table.Column<int>(nullable: false),
                     CarModels = table.Column<string>(nullable: true),
                     DriveTran = table.Column<string>(nullable: true),
                     EngineSize = table.Column<string>(nullable: true),
@@ -78,20 +78,6 @@ namespace VitalMechanic.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mileage",
-                columns: table => new
-                {
-                    MileageId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CarGarageId = table.Column<int>(nullable: false),
-                    CarMileage = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mileage", x => x.MileageId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Transmissions",
                 columns: table => new
                 {
@@ -102,6 +88,34 @@ namespace VitalMechanic.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transmissions", x => x.TransmissionID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleMiles",
+                columns: table => new
+                {
+                    MileId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarGarageID = table.Column<int>(nullable: false),
+                    Mileage = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleMiles", x => x.MileId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MileStones",
+                columns: table => new
+                {
+                    MileStoneId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleMileStones = table.Column<int>(nullable: false),
+                    MileStoneDescription = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleMileStones", x => x.MileStoneId);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,32 +138,6 @@ namespace VitalMechanic.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "CarMileageMilestone",
-                columns: table => new
-                {
-                    CarMileageMilestoneId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserCarsId = table.Column<int>(nullable: false),
-                    MaintenanceCompletionDate = table.Column<DateTime>(nullable: true),
-                    MileageId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarMileageMilestone", x => x.CarMileageMilestoneId);
-                    table.ForeignKey(
-                        name: "FK_CarMileageMilestone_Mileage_MileageId",
-                        column: x => x.MileageId,
-                        principalTable: "Mileage",
-                        principalColumn: "MileageId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CarMileageMilestone_MileageId",
-                table: "CarMileageMilestone",
-                column: "MileageId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_CarModels_CarMakesId",
                 table: "CarModels",
@@ -160,9 +148,6 @@ namespace VitalMechanic.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CarGarage");
-
-            migrationBuilder.DropTable(
-                name: "CarMileageMilestone");
 
             migrationBuilder.DropTable(
                 name: "CarModels");
@@ -180,7 +165,10 @@ namespace VitalMechanic.Migrations
                 name: "Transmissions");
 
             migrationBuilder.DropTable(
-                name: "Mileage");
+                name: "VehicleMiles");
+
+            migrationBuilder.DropTable(
+                name: "VehicleMileStones");
 
             migrationBuilder.DropTable(
                 name: "CarMakes");

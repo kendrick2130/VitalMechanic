@@ -11,8 +11,10 @@ namespace VitalMechanic.Models
     {
         [Key]
         public int CarGarageID { get; set; }
-        public int CarYear { get; set; }
+        public int CarYear { get; set; }        
         public string CarMake { get; set; }
+        [ForeignKey("CarModelsId")]
+        public int CarModelsId { get; set; }   
         public string CarModels { get; set; }
         public string DriveTran { get; set; }
         public string EngineSize { get; set; }

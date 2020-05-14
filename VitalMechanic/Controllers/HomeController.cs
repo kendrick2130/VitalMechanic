@@ -30,30 +30,33 @@ namespace VitalMechanic.Controllers
             return View();
         }
 
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> StoreVehicle(CarGarage cg)
-        {          
-
-            _context.CarGarage.Add(cg);
+        public async Task<IActionResult> StoreMileage(int miles, CarGarage selectedCar)
+        {
+            selectedCar = _context.CarGarage.Find(selectedCar.CarGarageID);
+          
+            VehicleMiles mileage = new VehicleMiles();
+            mileage.Mileage = miles;
+            mileage.CarGarageID = selectedCar.CarGarageID;
+       
+            _context.VehicleMiles.Add(mileage);
             _context.SaveChanges();
-            //ViewBag.message = "The Selected Vehicle" + cg.Make + "Is saved Successfully!";
-            return RedirectToAction();
+
+            //ViewBag.CarGarageID = new SelectList(_context.VehicleMiles, "CarGarageID", "CarModels", selectedCar.CarModelsId);
+
+            return RedirectToAction(nameof(Dashboard));
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> StoreMileage(int miles)
+        public async Task<IActionResult> Dashboard(CarGarage cg)
         {
-            Mileage mileage = new Mileage();
-            mileage.CarMileage = miles;
-            //if (miles <= 30000)
-            //{
-            //    Console.WriteLine("Time to change oil");
-            //}
-            _context.Mileage.Add(mileage);
+
+            _context.CarGarage.Add(cg);
             _context.SaveChanges();
-           
+            //ViewBag.message = "The Selected Vehicle" + cg.Make + "Is saved Successfully!";
             return RedirectToAction();
         }
 
@@ -83,7 +86,7 @@ namespace VitalMechanic.Controllers
             SelectList list1 = new SelectList(getCarMakeList, "Make", "Make");
             ViewBag.carMakeList = list1;
 
-            SelectList list2 = new SelectList(getCarModelList, "Model", "Model");
+            SelectList list2 = new SelectList(getCarModelList, "CarModelsId", "Model");
             ViewBag.carModelList = list2;
 
             SelectList list3 = new SelectList(getCarYearList, "YearOfMake", "YearOfMake");
@@ -101,7 +104,7 @@ namespace VitalMechanic.Controllers
             VehiclesContext carGarage = new VehiclesContext();
             var getCarGarageList = await carGarage.CarGarage.ToListAsync();
 
-            SelectList garagelist1 = new SelectList(getCarGarageList, "CarModels", "CarModels");
+            SelectList garagelist1 = new SelectList(getCarGarageList, "CarGarageID", "CarModels");
             ViewBag.carGarageList = garagelist1;
 
 

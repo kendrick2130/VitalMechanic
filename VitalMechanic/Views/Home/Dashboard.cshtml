@@ -1,4 +1,5 @@
-﻿@{
+﻿@using VitalMechanic.Models
+@{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 
@@ -8,7 +9,7 @@
 </div>
 <body>
     <header>
-        <form method="post" asp-action="StoreVehicle">
+        <form method="post">
             <div class="form-row justify-content-between">
                 <div class="col-2">
                     <div class="form-group custom-control-inline">
@@ -28,7 +29,7 @@
 
 
                         @Html.DropDownList("Transmission", ViewBag.carTransmissionList as SelectList, "Transmission", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
-                        <input name="cg" type="submit" value="Save" class="btn btn-primary">
+                        <input type="submit" value="Save" class="btn btn-primary">
                     </div>
 
                 </div>
@@ -85,13 +86,13 @@
                 <label for="Your Garage" class="text">
                     Your Garage
 
-                    @Html.DropDownList("CarGarage", ViewBag.carGarageList as SelectList, "Select Vehicle", new { @div_class = "form-group justify-content-center" })
+                    @Html.DropDownList("CarGarageID", ViewBag.carGarageList as SelectList, "Select Vehicle", new { @div_class = "form-group justify-content-center" })
                 </label>
             </div>
             <div class="form-row justify-content-center">
                 <div class="form-group mx-sm-3 mb-2">
-                    <label for="MileageId" class="sr-only">Vehicle Mileage</label>                    
-                    <input name="miles" type="text" class="form-control" id="MileageId" placeholder="Vehicle Mileage">
+                    <label for="VehicleMiles" class="sr-only">Vehicle Mileage</label>                    
+                    <input name="miles" type="text" class="form-control" asp-items="ViewBag.CarGarageID" placeholder="Vehicle Mileage">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Enter</button>
             </div>

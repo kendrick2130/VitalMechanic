@@ -14,6 +14,12 @@
     <Compile Remove="Data\Migrations\20200501145102_RemoveOnModelBuilding.Designer.cs" />
     <Compile Remove="Data\Migrations\20200512145142_StoreMileage.cs" />
     <Compile Remove="Data\Migrations\20200512145142_StoreMileage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200513132801_AddedVehicleMilestones.cs" />
+    <Compile Remove="Data\Migrations\20200513132801_AddedVehicleMilestones.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200514141858_addedVehicleMilestone.cs" />
+    <Compile Remove="Data\Migrations\20200514141858_addedVehicleMilestone.Designer.cs" />
+    <Compile Remove="Migrations\20200514144933_Milestones.cs" />
+    <Compile Remove="Migrations\20200514144933_Milestones.Designer.cs" />
   </ItemGroup>
 
 
