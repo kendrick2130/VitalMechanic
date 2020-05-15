@@ -92,14 +92,17 @@
             <div class="form-row justify-content-center">
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="VehicleMiles" class="sr-only">Vehicle Mileage</label>                    
-                    <input name="miles" type="text" class="form-control" asp-items="ViewBag.CarGarageID" placeholder="Vehicle Mileage">
+                    <input name="miles" type="text" class="form-control" placeholder="Vehicle Mileage">
+                    <p class="text-danger">
+                        @ViewBag.message
+                    </p>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Enter</button>
-            </div>
+            </div>      
             <div class="form-row justify-content-lg-center">
                 <div class="form-group">
                     <label for="MileageMileStone">Mileage Milestone</label>
-                    <textarea class="form-control" id="MileageMileStoneId" rows="3"></textarea>
+                    <textarea name="stones" class="form-control" id="MileageMileStone" rows="3"></textarea>
                 </div>
             </div>
         </form>

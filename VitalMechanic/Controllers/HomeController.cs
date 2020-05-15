@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -30,22 +31,39 @@ namespace VitalMechanic.Controllers
             return View();
         }
 
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> DisplayMileStone(VehicleMiles miles, MileStones stones)
+        //{
+        //    if (miles.Mileage <= stones.VehicleMileStones)
+        //    {
+        //        Console.WriteLine(stones.MileStoneDescription);
+        //    }
+
+        //    return RedirectToAction(nameof(Dashboard));
+        //}
 
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> StoreMileage(int miles, CarGarage selectedCar)
         {
             selectedCar = _context.CarGarage.Find(selectedCar.CarGarageID);
-          
+            MileStones stones = new MileStones();
+
             VehicleMiles mileage = new VehicleMiles();
             mileage.Mileage = miles;
             mileage.CarGarageID = selectedCar.CarGarageID;
-       
-            _context.VehicleMiles.Add(mileage);
+
+            if (miles == 0)
+            {
+                HttpContext.Session.SetString("message", "Please enter a valid number");
+            }
+            else
+            {
+                _context.VehicleMiles.Add(mileage);
+               
+            }
             _context.SaveChanges();
-
-            //ViewBag.CarGarageID = new SelectList(_context.VehicleMiles, "CarGarageID", "CarModels", selectedCar.CarModelsId);
-
             return RedirectToAction(nameof(Dashboard));
         }
 
@@ -106,7 +124,8 @@ namespace VitalMechanic.Controllers
 
             SelectList garagelist1 = new SelectList(getCarGarageList, "CarGarageID", "CarModels");
             ViewBag.carGarageList = garagelist1;
-
+           
+            ViewBag.message = HttpContext.Session.GetString("message");
 
             return View();
         }      
