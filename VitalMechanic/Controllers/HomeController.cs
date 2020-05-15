@@ -16,7 +16,7 @@ using VitalMechanic.Models;
 namespace VitalMechanic.Controllers
 {
     public class HomeController : Controller
-    {        
+    {
         private readonly VehiclesContext _context;
         private readonly ILogger<HomeController> _logger;
 
@@ -24,7 +24,7 @@ namespace VitalMechanic.Controllers
         {
             _logger = logger;
             _context = context;
-          
+
         }
         public IActionResult Index()
         {
@@ -50,19 +50,23 @@ namespace VitalMechanic.Controllers
             selectedCar = _context.CarGarage.Find(selectedCar.CarGarageID);
             MileStones stones = new MileStones();
 
-            VehicleMiles mileage = new VehicleMiles();
+            VehicleMiles mileage = _context.VehicleMiles.SingleOrDefault(vm => vm.CarGarageID == selectedCar.CarGarageID);
+
+            if (mileage == null)
+            {
+                mileage = new VehicleMiles();
+                mileage.CarGarageID = selectedCar.CarGarageID;
+                _context.VehicleMiles.Add(mileage);
+            }
+
             mileage.Mileage = miles;
-            mileage.CarGarageID = selectedCar.CarGarageID;
 
             if (miles == 0)
             {
                 HttpContext.Session.SetString("message", "Please enter a valid number");
             }
-            else
-            {
-                _context.VehicleMiles.Add(mileage);
-               
-            }
+
+
             _context.SaveChanges();
             return RedirectToAction(nameof(Dashboard));
         }
@@ -78,7 +82,7 @@ namespace VitalMechanic.Controllers
             return RedirectToAction();
         }
 
-        [Authorize] 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
@@ -124,11 +128,11 @@ namespace VitalMechanic.Controllers
 
             SelectList garagelist1 = new SelectList(getCarGarageList, "CarGarageID", "CarModels");
             ViewBag.carGarageList = garagelist1;
-           
+
             ViewBag.message = HttpContext.Session.GetString("message");
 
             return View();
-        }      
+        }
 
         public IActionResult Privacy()
         {
