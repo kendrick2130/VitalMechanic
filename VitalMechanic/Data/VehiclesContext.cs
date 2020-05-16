@@ -23,7 +23,7 @@ namespace VitalMechanic.Data
         public virtual DbSet<DriveTran> DriveTrans { get; set; }
         public virtual DbSet<Transmission> Transmissions { get; set; }
         public virtual DbSet<VehicleMiles> VehicleMiles { get; set; }
-        public virtual DbSet<MileStones> VehicleMileStones { get; set; }
+        public virtual DbSet<MileStones> MileStones { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

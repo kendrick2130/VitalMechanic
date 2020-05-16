@@ -78,6 +78,21 @@ namespace VitalMechanic.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MileStones",
+                columns: table => new
+                {
+                    MileStoneId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleMileStones = table.Column<int>(nullable: false),
+                    MileStoneDescription = table.Column<string>(nullable: true),
+                    CarGarageID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MileStones", x => x.MileStoneId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transmissions",
                 columns: table => new
                 {
@@ -102,20 +117,6 @@ namespace VitalMechanic.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VehicleMiles", x => x.MileId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MileStones",
-                columns: table => new
-                {
-                    MileStoneId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleMileStones = table.Column<int>(nullable: false),
-                    MileStoneDescription = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleMileStones", x => x.MileStoneId);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,13 +163,13 @@ namespace VitalMechanic.Migrations
                 name: "EngineSizes");
 
             migrationBuilder.DropTable(
+                name: "MileStones");
+
+            migrationBuilder.DropTable(
                 name: "Transmissions");
 
             migrationBuilder.DropTable(
                 name: "VehicleMiles");
-
-            migrationBuilder.DropTable(
-                name: "VehicleMileStones");
 
             migrationBuilder.DropTable(
                 name: "CarMakes");

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,11 +36,12 @@ namespace VitalMechanic.Controllers
         //{
         //    if (miles.Mileage <= stones.VehicleMileStones)
         //    {
-        //        Console.WriteLine(stones.MileStoneDescription);
+        //       
         //    }
 
         //    return RedirectToAction(nameof(Dashboard));
         //}
+
 
         [Authorize]
         [HttpPost]
@@ -50,7 +50,7 @@ namespace VitalMechanic.Controllers
             selectedCar = _context.CarGarage.Find(selectedCar.CarGarageID);
             MileStones stones = new MileStones();
 
-            VehicleMiles mileage = _context.VehicleMiles.SingleOrDefault(vm => vm.CarGarageID == selectedCar.CarGarageID);
+            VehicleMiles mileage = _context.VehicleMiles.SingleOrDefault(vm => vm.CarGarageID == selectedCar.CarGarageID); // compares the IDs to eachother. If they are equal then update, if not then add. 
 
             if (mileage == null)
             {
@@ -65,8 +65,6 @@ namespace VitalMechanic.Controllers
             {
                 HttpContext.Session.SetString("message", "Please enter a valid number");
             }
-
-
             _context.SaveChanges();
             return RedirectToAction(nameof(Dashboard));
         }
@@ -75,7 +73,8 @@ namespace VitalMechanic.Controllers
         [HttpPost]
         public async Task<IActionResult> Dashboard(CarGarage cg)
         {
-
+            //MileStones mileStones = new MileStones();
+            //HttpContext.Session.SetString("Milestones", mileStones.MileStoneDescription);
             _context.CarGarage.Add(cg);
             _context.SaveChanges();
             //ViewBag.message = "The Selected Vehicle" + cg.Make + "Is saved Successfully!";
@@ -123,15 +122,35 @@ namespace VitalMechanic.Controllers
             SelectList list6 = new SelectList(getTransmissionList, "TransmissionType", "TransmissionType");
             ViewBag.carTransmissionList = list6;
 
-            VehiclesContext carGarage = new VehiclesContext();
-            var getCarGarageList = await carGarage.CarGarage.ToListAsync();
+            var getCarGarageList = await _context.CarGarage.Include(cg => cg.CarModels).ToListAsync(); //gets carGarage and navigation property (carModels).
 
-            SelectList garagelist1 = new SelectList(getCarGarageList, "CarGarageID", "CarModels");
+            SelectList garagelist1 = new SelectList(getCarGarageList, "CarGarageID", "CarModels.Model");
             ViewBag.carGarageList = garagelist1;
 
             ViewBag.message = HttpContext.Session.GetString("message");
 
-            return View();
+            //foreach(var id in getCarGarageList)
+            //{
+            //    VehicleMiles miles = new VehicleMiles();
+            //    MileStones mileStones = new MileStones();
+
+            //    if(miles.Mileage <= mileStones.VehicleMileStones)
+            //    {
+            //        ViewBag.message = HttpContext.Session.GetString("Milestones");
+            //    }
+            //}
+
+
+
+            var query = _context.VehicleMiles
+                                .Select(vm =>
+                                     new DashboardViewModel(vm.CarGarageID,
+                                                            vm.Mileage, 
+                                                            _context.MileStones
+                                                                    .Where(ms => ms.VehicleMileStones <= vm.Mileage)
+                                                                    .Select(ms => new VehicleMilestoneViewModel(ms.VehicleMileStones, ms.MileStoneDescription))));
+
+            return View(query);
         }
 
         public IActionResult Privacy()

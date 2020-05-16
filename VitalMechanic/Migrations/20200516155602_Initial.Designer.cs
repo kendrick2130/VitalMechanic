@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VitalMechanic.Data;
 
 namespace VitalMechanic.Migrations
 {
     [DbContext(typeof(VehiclesContext))]
-    partial class VehiclesContextModelSnapshot : ModelSnapshot
+    [Migration("20200516155602_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace VitalMechanic.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CarMake")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CarModels")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CarModelsId")
@@ -44,8 +49,6 @@ namespace VitalMechanic.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CarGarageID");
-
-                    b.HasIndex("CarModelsId");
 
                     b.ToTable("CarGarage");
                 });
@@ -182,15 +185,6 @@ namespace VitalMechanic.Migrations
                     b.HasKey("MileId");
 
                     b.ToTable("VehicleMiles");
-                });
-
-            modelBuilder.Entity("VitalMechanic.Models.CarGarage", b =>
-                {
-                    b.HasOne("VitalMechanic.Models.CarModels", "CarModels")
-                        .WithMany()
-                        .HasForeignKey("CarModelsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("VitalMechanic.Models.CarModels", b =>

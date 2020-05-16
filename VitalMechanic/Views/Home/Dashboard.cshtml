@@ -1,4 +1,4 @@
-﻿@using VitalMechanic.Models
+﻿@model IEnumerable<DashboardViewModel>
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
@@ -19,7 +19,7 @@
                         @Html.DropDownList("CarMake", ViewBag.carMakeList as SelectList, "Make", new { @div_class = "form-contol", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
 
 
-                        @Html.DropDownList("CarModels", ViewBag.carModelList as SelectList, "Model", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
+                        @Html.DropDownList("CarModelsId", ViewBag.carModelList as SelectList, "Model", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
 
 
                         @Html.DropDownList("DriveTran", ViewBag.carDriveList as SelectList, "DriveTran", new { @div_class = "form-group", @class = "form-control col-md-9", aria_labelledby = "dropdownMenuButton" })
@@ -91,14 +91,14 @@
             </div>
             <div class="form-row justify-content-center">
                 <div class="form-group mx-sm-3 mb-2">
-                    <label for="VehicleMiles" class="sr-only">Vehicle Mileage</label>                    
+                    <label for="VehicleMiles" class="sr-only">Vehicle Mileage</label>
                     <input name="miles" type="text" class="form-control" placeholder="Vehicle Mileage">
                     <p class="text-danger">
                         @ViewBag.message
                     </p>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Enter</button>
-            </div>      
+            </div>
             <div class="form-row justify-content-lg-center">
                 <div class="form-group">
                     <label for="MileageMileStone">Mileage Milestone</label>
@@ -169,7 +169,22 @@
         </div>
 
     </header>
+    @foreach(var v in Model)
+    {
+        <p>
+            @v.CarGarageID at @v.Mileage should have the following milestones in the past:
+        </p>
+
+        @foreach (var m in v.Milestones)
+        {
+            <p>
+                At @m.VehicleMileStones, @m.MileStoneDescription
+            </p>
+        }
+    }
+
 </body>
+
 
 
 

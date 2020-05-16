@@ -9,8 +9,8 @@ using VitalMechanic.Data;
 namespace VitalMechanic.Migrations
 {
     [DbContext(typeof(VehiclesContext))]
-    [Migration("20200514145400_Initial")]
-    partial class Initial
+    [Migration("20200516192146_DeletedCarModelsfromCarGarage")]
+    partial class DeletedCarModelsfromCarGarage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,9 +30,6 @@ namespace VitalMechanic.Migrations
                     b.Property<string>("CarMake")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CarModels")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CarModelsId")
                         .HasColumnType("int");
 
@@ -49,6 +46,8 @@ namespace VitalMechanic.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CarGarageID");
+
+                    b.HasIndex("CarModelsId");
 
                     b.ToTable("CarGarage");
                 });
@@ -140,6 +139,9 @@ namespace VitalMechanic.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CarGarageID")
+                        .HasColumnType("int");
+
                     b.Property<string>("MileStoneDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -148,7 +150,7 @@ namespace VitalMechanic.Migrations
 
                     b.HasKey("MileStoneId");
 
-                    b.ToTable("VehicleMileStones");
+                    b.ToTable("MileStones");
                 });
 
             modelBuilder.Entity("VitalMechanic.Models.Transmission", b =>
@@ -182,6 +184,15 @@ namespace VitalMechanic.Migrations
                     b.HasKey("MileId");
 
                     b.ToTable("VehicleMiles");
+                });
+
+            modelBuilder.Entity("VitalMechanic.Models.CarGarage", b =>
+                {
+                    b.HasOne("VitalMechanic.Models.CarModels", "CarModels")
+                        .WithMany()
+                        .HasForeignKey("CarModelsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VitalMechanic.Models.CarModels", b =>

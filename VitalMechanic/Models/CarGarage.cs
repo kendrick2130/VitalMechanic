@@ -15,7 +15,7 @@ namespace VitalMechanic.Models
         public string CarMake { get; set; }
         [ForeignKey("CarModelsId")]
         public int CarModelsId { get; set; }   
-        public string CarModels { get; set; }
+        public CarModels CarModels { get; set; } // navigation property. Refers to a foreign key and fills a object with the row that is associated with the FK
         public string DriveTran { get; set; }
         public string EngineSize { get; set; }
         public string Transmission { get; set; }
