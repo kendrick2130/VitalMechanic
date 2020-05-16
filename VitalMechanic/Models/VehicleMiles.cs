@@ -11,8 +11,9 @@ namespace VitalMechanic.Models
     {
         [Key]
         public int MileId { get; set; }
-        public int CarGarageID { get; set; }
         [ForeignKey("CarGarageID")]
+        public int CarGarageID { get; set; }
+        public CarGarage CarGarage { get; set; }
         public int Mileage { get; set; }
     }
 }

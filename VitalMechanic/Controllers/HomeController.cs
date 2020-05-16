@@ -54,8 +54,10 @@ namespace VitalMechanic.Controllers
 
             if (mileage == null)
             {
-                mileage = new VehicleMiles();
-                mileage.CarGarageID = selectedCar.CarGarageID;
+                mileage = new VehicleMiles
+                {
+                    CarGarageID = selectedCar.CarGarageID
+                };
                 _context.VehicleMiles.Add(mileage);
             }
 
@@ -143,8 +145,9 @@ namespace VitalMechanic.Controllers
 
 
             var query = _context.VehicleMiles
+                                .Include(vm => vm.CarGarage).ThenInclude(cg => cg.CarModels)
                                 .Select(vm =>
-                                     new DashboardViewModel(vm.CarGarageID,
+                                     new DashboardViewModel(vm.CarGarage.CarModels.Model,
                                                             vm.Mileage, 
                                                             _context.MileStones
                                                                     .Where(ms => ms.VehicleMileStones <= vm.Mileage)

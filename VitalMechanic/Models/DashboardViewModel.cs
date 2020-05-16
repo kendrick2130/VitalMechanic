@@ -17,13 +17,13 @@ namespace VitalMechanic.Models
 
     public class DashboardViewModel
     {
-        public int CarGarageID { get; }
+        public string CarModel { get; }
         public int Mileage { get; }
         public IEnumerable<VehicleMilestoneViewModel> Milestones { get; }
 
-        public DashboardViewModel(int carGarageID, int mileage, IEnumerable<VehicleMilestoneViewModel> vehicleMileStones)
+        public DashboardViewModel(string carModel, int mileage, IEnumerable<VehicleMilestoneViewModel> vehicleMileStones)
         {
-            CarGarageID = carGarageID;
+            CarModel = carModel;
             Mileage = mileage;
             Milestones = vehicleMileStones;
         }
