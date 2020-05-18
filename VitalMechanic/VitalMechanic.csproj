@@ -9,17 +9,6 @@
     <None Remove="C:\Users\Kendrick\.nuget\packages\microsoft.net.compilers\1.0.0\build\..\tools\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Data\Migrations\20200501145102_RemoveOnModelBuilding.cs" />
-    <Compile Remove="Data\Migrations\20200501145102_RemoveOnModelBuilding.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200512145142_StoreMileage.cs" />
-    <Compile Remove="Data\Migrations\20200512145142_StoreMileage.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200513132801_AddedVehicleMilestones.cs" />
-    <Compile Remove="Data\Migrations\20200513132801_AddedVehicleMilestones.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200514141858_addedVehicleMilestone.cs" />
-    <Compile Remove="Data\Migrations\20200514141858_addedVehicleMilestone.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
