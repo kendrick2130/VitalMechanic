@@ -23,13 +23,12 @@ namespace VitalMechanic.Controllers
         {
             _logger = logger;
             _context = context;
-
         }
         public IActionResult Index()
         {
             return View();
         }
-
+  
         //[Authorize]
         //[HttpPost]
         //public async Task<IActionResult> StoreMileage(int miles, CarGarage selectedCar)
@@ -79,7 +78,7 @@ namespace VitalMechanic.Controllers
                                 selectedCar.CarModels.Model, miles,
                                 _context.MileStones
                                         .Where(ms => ms.VehicleMileStones <= miles)
-                                        .Select(ms => new VehicleMilestoneViewModel(ms.VehicleMileStones,           ms.MileStoneDescription)));
+                                        .Select(ms => new VehicleMilestoneViewModel(ms.VehicleMileStones, ms.MileStoneDescription)));
             }
 
             return View(query);
